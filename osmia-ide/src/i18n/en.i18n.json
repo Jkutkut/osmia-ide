@@ -1,4 +1,5 @@
 {
     "name": "Osmina IDE",
+    "navbar.mainTab": "Files",
     "madeBy": "Made by {{author}}"
 }

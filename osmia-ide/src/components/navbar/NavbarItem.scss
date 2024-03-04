@@ -1,0 +1,25 @@
+@import '../../sass/main.scss';
+
+$border-radius: 5px;
+
+.nav-file-item {
+    cursor: pointer;
+    border-radius: $border-radius $border-radius 0 0;
+    .close-tab {
+        visibility: hidden;
+    }
+}
+
+.nav-file-item.active {
+    background-color: var(--bs-body-bg);
+    .close-tab {
+        visibility: visible;
+    }
+}
+
+.nav-file-item:not(.active):hover {
+    background-color: var(--bs-secondary-bg);
+    .close-tab {
+        visibility: visible;
+    }
+}
