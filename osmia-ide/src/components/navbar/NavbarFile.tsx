@@ -1,22 +1,18 @@
+import {File} from "../../App";
 import FileLogo from "../../assets/FileLogo";
 
 interface Props {
-  file: {
-    id: string
-    name: string
-  }
+  file: File,
+  onClose: () => void
 }
 
-const NavbarFile = ({file}: Props) => {
-  const closeTab = () => {
-    alert('close tab'); // TODO handle
-  };
+const NavbarFile = ({file, onClose}: Props) => {
   return <>
       <div>
         <FileLogo />
       </div>
       <span>{file.name}</span>
-      <span className="close-tab ps-1" onClick={closeTab}>
+      <span className="close-tab ps-1" onClick={onClose}>
         &times;
       </span>
   </>

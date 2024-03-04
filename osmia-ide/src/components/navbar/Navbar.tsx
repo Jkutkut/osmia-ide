@@ -5,17 +5,16 @@ import NavbarFile from "./NavbarFile";
 import NavbarItem from "./NavbarItem";
 import NavbarProjectInfo from './NavbarProjectInfo';
 import './Navbar.scss';
+import {File} from '../../App';
 
 interface Props {
-  activeTab: number,
-  setActiveTab: (tab: number) => void,
-  files: {
-    id: string,
-    name: string
-  }[]
+  tabIndex: number,
+  editorFiles: File[],
+  closeFile: (fileId: string) => void,
+  focusTab: (tab: number) => void,
 };
 
-const Navbar = ({activeTab, setActiveTab, files}: Props) => {
+const Navbar = ({tabIndex, editorFiles, focusTab, closeFile}: Props) => {
   const MAIN_TAB = -1;
   const { t } = useTranslation();
   return (
@@ -23,8 +22,8 @@ const Navbar = ({activeTab, setActiveTab, files}: Props) => {
       <div className="container-fluid flex-nowrap gap-3">
         <div className="flex-grow-0 flex-shrink-0 flex-basis-auto align-items-end">
           <NavbarItem
-            active={activeTab === MAIN_TAB}
-            onClick={() => setActiveTab(MAIN_TAB)}
+            active={tabIndex === MAIN_TAB}
+            onClick={() => focusTab(MAIN_TAB)}
           >
             <div>
               <FolderLogo />
@@ -35,13 +34,16 @@ const Navbar = ({activeTab, setActiveTab, files}: Props) => {
           </NavbarItem>
         </div>
         <div className="w-100 gap-2 d-flex flex-grow-1 overflow-x-auto flex-row">
-          {files.map((file, idx) => (
+          {editorFiles.map((file, idx) => (
             <NavbarItem
               key={idx}
-              active={activeTab === idx}
-              onClick={() => setActiveTab(idx)}
+              active={tabIndex === idx}
+              onClick={() => focusTab(idx)}
             >
-              <NavbarFile file={file}/>
+              <NavbarFile
+                file={file}
+                onClose={() => closeFile(file.id)}
+              />
             </NavbarItem>
           ))}
         </div>
