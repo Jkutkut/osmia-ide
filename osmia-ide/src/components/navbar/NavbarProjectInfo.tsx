@@ -6,7 +6,7 @@ const NavbarProjectInfo = () => {
   const {t} = useTranslation();
 
   return (
-    <div className="d-flex gap-3 pt-2 pb-2">
+    <div className="d-flex gap-3">
       <a className="nav-link tablet-desktop-only" href={repository.url} target='_blank' rel="noreferrer">
         <span className="nav-link text-nowrap">
           {t('name')} {version}

@@ -12,7 +12,7 @@ function fileGenerator(nbr: number) {
 }
 
 function App() {
-  const [ openFiles ] = useState(fileGenerator(1));
+  const [ openFiles ] = useState(fileGenerator(4));
   const [activeTab, setActiveTab] = useState(-1);
   return <>
     <Navbar
@@ -20,31 +20,6 @@ function App() {
       setActiveTab={setActiveTab}
       files={openFiles}
     />
-    <br/>
-    <Navbar
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-      files={fileGenerator(2)}
-    />
-    <br/>
-    <Navbar
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-      files={fileGenerator(5)}
-    />
-    <br/>
-    <Navbar
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-      files={fileGenerator(10)}
-    />
-    <br/>
-    <Navbar
-      activeTab={activeTab}
-      setActiveTab={setActiveTab}
-      files={fileGenerator(100)}
-    />
-    <br/>
   </>
 }
 

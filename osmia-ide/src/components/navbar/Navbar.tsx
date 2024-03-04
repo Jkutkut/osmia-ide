@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FolderLogo from "../../assets/FolderLogo";
 import NavbarFile from "./NavbarFile";
 import NavbarItem from "./NavbarItem";
 import NavbarProjectInfo from './NavbarProjectInfo';
+import './Navbar.scss';
 
 interface Props {
   activeTab: number,
@@ -21,7 +21,7 @@ const Navbar = ({activeTab, setActiveTab, files}: Props) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
       <div className="container-fluid flex-nowrap gap-3">
-        <div className="flex-grow-0 flex-shrink-0 flex-basis-auto">
+        <div className="flex-grow-0 flex-shrink-0 flex-basis-auto align-items-end">
           <NavbarItem
             active={activeTab === MAIN_TAB}
             onClick={() => setActiveTab(MAIN_TAB)}
@@ -36,16 +36,13 @@ const Navbar = ({activeTab, setActiveTab, files}: Props) => {
         </div>
         <div className="w-100 gap-2 d-flex flex-grow-1 overflow-x-auto flex-row">
           {files.map((file, idx) => (
-            <div
-              key={file.id}
+            <NavbarItem
+              key={idx}
+              active={activeTab === idx}
+              onClick={() => setActiveTab(idx)}
             >
-              <NavbarItem
-                active={activeTab === idx}
-                onClick={() => setActiveTab(idx)}
-              >
-                <NavbarFile file={file}/>
-              </NavbarItem>
-            </div>
+              <NavbarFile file={file}/>
+            </NavbarItem>
           ))}
         </div>
         <NavbarProjectInfo />

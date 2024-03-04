@@ -5,6 +5,7 @@ $border-radius: 5px;
 .nav-file-item {
     cursor: pointer;
     border-radius: $border-radius $border-radius 0 0;
+    border: 2px solid transparent;
     .close-tab {
         visibility: hidden;
     }
@@ -15,6 +16,11 @@ $border-radius: 5px;
     .close-tab {
         visibility: visible;
     }
+}
+
+.nav-file-item:not(.active) {
+    border: 2px solid var(--bs-secondary-bg);
+    border-bottom: 2px solid transparent;
 }
 
 .nav-file-item:not(.active):hover {
