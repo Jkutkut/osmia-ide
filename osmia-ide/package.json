@@ -1,11 +1,11 @@
 {
-  "name": "Osmia IDE",
+  "name": "osmia-ide",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/jkutkut/osmia-ide.git"
   },
-  "version": "0.0.2",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite --port $PORT",
@@ -18,7 +18,8 @@
     "i18next": "^23.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^14.0.5"
+    "react-i18next": "^14.0.5",
+    "sass": "^1.71.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

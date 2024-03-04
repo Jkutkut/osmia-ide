@@ -1,5 +1,4 @@
 import './i18n/i18n.ts'
-import './App.css'
 import NavbarProjectInfo from './components/navbar/NavbarProjectInfo'
 
 function App() {
