@@ -1,1 +1,14 @@
-$mobile-to-desktop: 768px;
+$tablet-to-desktop: 768px;
+$mobile-to-tablet: 480px;
+
+@media (width <= $tablet-to-desktop) {
+    .desktop-only {
+        display: none;
+    }
+}
+
+@media (width <= $mobile-to-tablet) {
+    .tablet-desktop-only {
+        display: none;
+    }
+}

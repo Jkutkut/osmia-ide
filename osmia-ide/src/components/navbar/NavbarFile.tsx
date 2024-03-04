@@ -16,7 +16,7 @@ const NavbarFile = ({file}: Props) => {
         <FileLogo />
       </div>
       <span>{file.name}</span>
-      <span className="close-tab" onClick={closeTab}>
+      <span className="close-tab ps-1" onClick={closeTab}>
         &times;
       </span>
   </>
