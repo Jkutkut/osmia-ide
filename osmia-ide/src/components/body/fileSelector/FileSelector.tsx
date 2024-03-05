@@ -1,6 +1,5 @@
 import {useContext} from "react";
 import FileContext from "../../../context/FileContext";
-import {FileHandlerObject} from "../../../hooks/fileHandler";
 import PencilLogo from "../../../assets/PencilLogo";
 import TrashLogo from "../../../assets/TrashLogo";
 
@@ -9,10 +8,7 @@ interface Props {
 };
 
 const FileSelector = ({}: Props) => {
-  // const { files, addFile, editFile, removeFile } = useContext(FileContext);
-  const fHandler = useContext(FileContext);
-  console.debug(fHandler);
-  const { files, addFile, editFile, removeFile } = fHandler;
+  const { files, addFile, editFile, removeFile } = useContext(FileContext);
   return (
     <table className="table align-middle">
       <thead>

@@ -1,3 +1,5 @@
+/*
+
 .overflow-x-auto::-webkit-scrollbar {
     display: none;
 }
@@ -5,4 +7,21 @@
 .overflow-x-auto {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+*/
+
+$scrollbar-size: 8px;
+
+::-webkit-scrollbar {
+    width: $scrollbar-size;
+    height: $scrollbar-size;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bs-body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-secondary-bg);
 }
