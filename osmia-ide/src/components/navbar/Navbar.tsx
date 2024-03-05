@@ -1,3 +1,4 @@
+import {useContext} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FolderLogo from "../../assets/FolderLogo";
@@ -5,18 +6,17 @@ import NavbarFile from "./NavbarFile";
 import NavbarItem from "./NavbarItem";
 import NavbarProjectInfo from './NavbarProjectInfo';
 import './Navbar.scss';
-import {File} from '../../App';
+import FileContext from '../../context/FileContext';
 
 interface Props {
-  tabIndex: number,
-  editorFiles: File[],
   closeFile: (fileId: string) => void,
   focusTab: (tab: number) => void,
 };
 
-const Navbar = ({tabIndex, editorFiles, focusTab, closeFile}: Props) => {
+const Navbar = ({focusTab, closeFile}: Props) => {
   const MAIN_TAB = -1;
   const { t } = useTranslation();
+  const { tabIndex, openFiles } = useContext(FileContext);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
       <div className="container-fluid flex-nowrap gap-3">
@@ -34,7 +34,7 @@ const Navbar = ({tabIndex, editorFiles, focusTab, closeFile}: Props) => {
           </NavbarItem>
         </div>
         <div className="w-100 gap-2 d-flex flex-grow-1 overflow-x-auto flex-row">
-          {editorFiles.map((file, idx) => (
+          {openFiles.map((file, idx) => (
             <NavbarItem
               key={idx}
               active={tabIndex === idx}
