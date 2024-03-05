@@ -18,7 +18,7 @@ function fileGenerator(nbr: number) {
 const useFileHandler = () => {
   const [ tabIndex, setTabIndex ] = useState(-1);
   // const [ files, setFiles ] = useState<File[]>([]);
-  const [ files, setFiles ] = useState<File[]>(fileGenerator(200)); // TODO
+  const [ files, setFiles ] = useState<File[]>(fileGenerator(10)); // TODO
   const [ openFiles, setOpenFiles ] = useState<File[]>([]);
 
   const focusTab = (tab: number) => {
