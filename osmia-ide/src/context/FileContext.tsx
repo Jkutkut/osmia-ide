@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import fileHandler, {FileHandlerObject} from '../hooks/fileHandler';
+import {FileHandlerObject} from '../model';
 
 const FileContext = createContext<FileHandlerObject>({});
 

@@ -57,6 +57,7 @@ const Navbar = ({focusTab, closeFile}: Props) => {
               isScrollBarOn={scrollIsOn}
               active={tabIndex === idx}
               onClick={() => focusTab(idx)}
+              onMiddleClick={() => closeFile(file.id)}
             >
               <NavbarFile
                 file={file}

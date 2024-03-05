@@ -2,10 +2,7 @@ import {useContext} from "react";
 import FileContext from "../../context/FileContext";
 import FileSelector from "./fileSelector/FileSelector";
 
-interface Props {
-};
-
-const Body = ({}: Props) => {
+const Body = () => {
   const FILE_SELECTOR = -1;
   const { tabIndex, openFiles } = useContext(FileContext);
   return <>

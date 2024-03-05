@@ -9,6 +9,11 @@ $border-radius: 5px;
     .close-tab {
         visibility: hidden;
     }
+    span {
+        max-width: 20vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 .nav-file-item.active {

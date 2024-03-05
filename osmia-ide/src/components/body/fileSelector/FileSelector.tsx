@@ -1,61 +1,49 @@
 import {useContext} from "react";
+import {useTranslation} from "react-i18next";
+
 import FileContext from "../../../context/FileContext";
-import PencilLogo from "../../../assets/PencilLogo";
-import TrashLogo from "../../../assets/TrashLogo";
+import FileSelectorItem from "./FileSelectorItem";
+import AddFileLogo from "../../../assets/AddFileLogo";
 
-interface Props {
-
-};
-
-const FileSelector = ({}: Props) => {
+const FileSelector = () => {
+  const { t } = useTranslation();
   const { files, addFile, editFile, removeFile } = useContext(FileContext);
   return (
-    <table className="table align-middle">
-      <thead>
-        <tr>
-          <th scope="col">
-            Name
-            {/* TODO i18n */}
-          </th>
-          <th scope="col">
-            Last update
-            {/* TODO i18n */}
-          </th>
-          <th scope="col">
-            {/*Actions*/}
-            {/* TODO i18n */}
-            <button
-              className="btn btn-primary"
-              onClick={addFile}
-            >
-              New file
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody className="table-group-divider">
-        {files.map((file, idx) => (
-          <tr key={idx}>
-            <td>{file.name}</td>
-            <td>{file.last_udate_str}</td>
-            <td>
+    <div className="w-100 overflow-x-auto">
+      <table className="table align-middle text-nowrap">
+        <thead>
+          <tr className="align-middle">
+            <th scope="col">
+              {t('body.fileSelector.table.name')}
+            </th>
+            <th scope="col" className="text-center">
+              {t('body.fileSelector.table.lastUpdate')}
+            </th>
+            <th scope="col" className="d-flex justify-content-center flex-row gap-2">
               <button
-                className="btn"
-                onClick={() => editFile(file.id)}
+                className="btn d-flex justify-content-center flex-row gap-2"
+                onClick={addFile}
               >
-                <PencilLogo />
+                <div className="text-primary">
+                  <AddFileLogo />
+                </div>
+                {t('body.fileSelector.button.newFile')}
               </button>
-              <button
-                className="btn"
-                onClick={() => removeFile(file.id)}
-              >
-                <TrashLogo classes="text-danger" />
-              </button>
-            </td>
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="table-group-divider">
+          {files.map((file, idx) => (
+            <FileSelectorItem
+              key={idx}
+              file={file}
+              onEdit={() => editFile(file.id)}
+              onRemove={() => removeFile(file.id)}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

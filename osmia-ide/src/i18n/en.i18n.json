@@ -1,5 +1,8 @@
 {
     "name": "Osmina IDE",
     "navbar.mainTab": "Files",
-    "madeBy": "Made by {{author}}"
+    "madeBy": "Made by {{author}}",
+    "body.fileSelector.table.name": "Name",
+    "body.fileSelector.table.lastUpdate": "Last update",
+    "body.fileSelector.button.newFile": "New file"
 }
