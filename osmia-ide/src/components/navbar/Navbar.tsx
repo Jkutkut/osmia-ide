@@ -1,12 +1,12 @@
 import {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FolderLogo from "../../assets/FolderLogo";
+import FolderLogo from "@/src/assets/FolderLogo";
 import NavbarFile from "./NavbarFile";
 import NavbarItem from "./NavbarItem";
 import NavbarProjectInfo from './NavbarProjectInfo';
 import './Navbar.scss';
-import FileContext from '../../context/FileContext';
+import FileContext from '@/src/context/FileContext';
 
 interface Props {
   closeFile: (fileId: string) => void,

@@ -1,7 +1,7 @@
-import ExportLogo from "../../../assets/ExportLogo";
-import PencilLogo from "../../../assets/PencilLogo";
-import TrashLogo from "../../../assets/TrashLogo";
-import {File} from "../../../model";
+import ExportLogo from "@/src/assets/ExportLogo";
+import PencilLogo from "@/src/assets/PencilLogo";
+import TrashLogo from "@/src/assets/TrashLogo";
+import {File} from "@/src/model";
 
 interface Props {
   file: File;

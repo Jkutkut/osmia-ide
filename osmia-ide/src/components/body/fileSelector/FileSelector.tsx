@@ -1,9 +1,9 @@
 import {useContext} from "react";
 import {useTranslation} from "react-i18next";
 
-import FileContext from "../../../context/FileContext";
+import FileContext from "@/src/context/FileContext";
 import FileSelectorItem from "./FileSelectorItem";
-import AddFileLogo from "../../../assets/AddFileLogo";
+import AddFileLogo from "@/src/assets/AddFileLogo";
 
 const FileSelector = () => {
   const { t } = useTranslation();

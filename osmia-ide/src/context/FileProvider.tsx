@@ -1,5 +1,5 @@
+import {FileHandlerObject} from "@/src/model";
 import FileContext from "./FileContext";
-import {FileHandlerObject} from "../hooks/fileHandler";
 
 interface Props {
   data: FileHandlerObject;

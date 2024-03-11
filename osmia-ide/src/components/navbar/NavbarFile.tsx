@@ -1,5 +1,5 @@
-import {File} from "../../App";
-import FileLogo from "../../assets/FileLogo";
+import {File} from "@/src/model";
+import FileLogo from "@/src/assets/FileLogo";
 
 interface Props {
   file: File,

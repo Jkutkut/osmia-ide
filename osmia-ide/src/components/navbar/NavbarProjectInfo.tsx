@@ -1,6 +1,6 @@
-import {version, repository} from '../../../package.json';
+import {version, repository} from '@/package.json';
 import {useTranslation} from 'react-i18next';
-import GitHubLogo from '../../assets/GitHubLogo';
+import GitHubLogo from '@/src/assets/GitHubLogo';
 
 const NavbarProjectInfo = () => {
   const {t} = useTranslation();

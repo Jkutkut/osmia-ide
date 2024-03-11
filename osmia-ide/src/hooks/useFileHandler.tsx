@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { FileHandlerObject, File } from "../model";
+import { FileHandlerObject, File } from "@/src/model";
 
 function createFile(n: number) {
   const text_with_n_chars = Array.from({ length: n }, (_, index) => index + 1).join('');

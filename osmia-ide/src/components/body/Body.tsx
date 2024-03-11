@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
-import {version} from "../../../package.json";
+import {version} from "@/package.json";
 
-import FileContext from "../../context/FileContext";
+import FileContext from "@/src/context/FileContext";
 import FileSelector from "./fileSelector/FileSelector";
 import Editor from '@monaco-editor/react';
 
