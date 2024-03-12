@@ -24,9 +24,13 @@ interface Props {
 };
 
 const FileEditor = ({}: Props) => {
-  const { tabIndex, openFiles } = useContext(FileContext);
+  const {
+    tabIndex, openFiles,
+    changeCurrentFileLanguage
+  } = useContext(FileContext);
   const [ activeFile, setActiveFile ] = useState<FileEditorTab>(FileEditorTab.OSMIA);
-  const [ language, setLanguage ] = useState(openFiles[tabIndex].osmiaLanguage);
+  // const [ language, setLanguage ] = useState(openFiles[tabIndex].osmiaLanguage);
+  const language = openFiles[tabIndex].osmiaLanguage;
   const code = openFiles[tabIndex].osmia;
 
   const run = () => {
@@ -105,7 +109,7 @@ const FileEditor = ({}: Props) => {
               value={language}
               onChange={e => {
                 const language = e.target.value;
-                setLanguage(language);
+                changeCurrentFileLanguage(language);
               }}
             >
               {EDITOR_LANGUAGES.map((language, idx) => (

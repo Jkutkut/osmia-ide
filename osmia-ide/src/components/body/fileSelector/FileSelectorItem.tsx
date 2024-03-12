@@ -11,15 +11,21 @@ interface Props {
 
 const FileSelectorItem = ({file, onEdit, onRemove}: Props) => {
   const {
+    osmiaLanguage: language,
     name: filename,
     lastUpdate: d
   } = file;
   const dateTime = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
   const date = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
+
+  const onExport = () => {
+    console.warn('export: not implemented');
+  };
+
   return (
     <tr>
       <td className="table-file-name overflow-x-auto">
-          {filename}
+          {language} -- {filename}
       </td>
       <td className="table-last-update text-center overflow-x-auto">
         <span className="desktop-only">
@@ -37,7 +43,10 @@ const FileSelectorItem = ({file, onEdit, onRemove}: Props) => {
         >
           <PencilLogo />
         </button>
-        <button className="btn text-primary">
+        <button
+          className="btn text-primary"
+          onClick={onExport}
+        >
           <ExportLogo />
         </button>
         <button

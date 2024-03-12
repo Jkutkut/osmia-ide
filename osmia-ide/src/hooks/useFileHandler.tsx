@@ -4,11 +4,19 @@ import { FileHandlerObject, File } from "@/src/model";
 import fileFromJSON from "@/src/tools/fileFromJSON";
 
 function createFile(n: number) {
+  let fileId;
+  while (true) {
+    fileId = `_f${n}`;
+    if (!localStorage.getItem(fileId)) {
+      break;
+    }
+    n++;
+  }
   const text_with_n_chars = Array.from({ length: n }, (_, index) => index + 1).join('');
   const d = new Date();
   const filename = `File ${n} - ${text_with_n_chars}`;
   return {
-    id: `_f${n}`,
+    id: fileId,
     name: filename,
     lastUpdate: d,
     osmia: [
@@ -102,6 +110,33 @@ const useFileHandler = () => {
     store('indexes', JSON.stringify(newFiles.map(file => file.id)));
   };
 
+  // Edition
+  const renameCurrentFile = (name: string) => {
+    if (tabIndex === -1)
+      return;
+    const newFile = {...openFiles[tabIndex], name} as File;
+    const { id } = newFile;
+    setFiles(files.map(file => file.id === id ? newFile : file));
+    setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
+
+    // Store // TODO refactor
+    store(id, JSON.stringify(newFile));
+  }
+  const changeCurrentFileLanguage = (language: string) => {
+    if (tabIndex === -1)
+      return;
+    const newFile = {...openFiles[tabIndex], osmiaLanguage: language} as File;
+    const { id } = newFile;
+    setFiles(files.map(file => file.id === id ? newFile : file));
+    setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
+
+    // Store // TODO refactor
+    store(id, JSON.stringify(newFile));
+  };
+  const saveFileContent = (fileId: string, contentType: number, content: string) => {
+    console.warn('saveFile: not implemented');
+  };
+
   return {
     tabIndex,
     focusTab,
@@ -110,7 +145,12 @@ const useFileHandler = () => {
     addFile,
     editFile,
     closeFile,
-    removeFile
+    removeFile,
+
+    // Edition
+    renameCurrentFile,
+    changeCurrentFileLanguage,
+    saveFileContent
   } as FileHandlerObject;
 };
 
