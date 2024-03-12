@@ -5,12 +5,19 @@ import EDITOR_LANGUAGES from "@/src/model/EditorLanguages";
 import FileEditorNavbar from "./FileEditorNavbar";
 import FileContext from "@/src/context/FileContext";
 import MonacoEditor from "./MonacoEditor";
+import {OnChange} from "@monaco-editor/react";
 
-type EditorFile = {
-  name: string;
-  value: string;
+enum FileEditorTab {
+  OSMIA = 0,
+  CTX = 1,
+  RESULT = 2
 };
 
+const FILE_EDITOR_TABS = [
+  'osmia',
+  'ctx',
+  'result'
+];
 
 interface Props {
 
@@ -19,33 +26,24 @@ interface Props {
 const FileEditor = ({}: Props) => {
   const { tabIndex, openFiles } = useContext(FileContext);
   const [ language, setLanguage ] = useState('html');
-  const [ editorFiles, setEditorFiles ] = useState<EditorFile[]>([
-    {
-      name: 'osmia',
-      value: "<h1>Hello, world!</h1>\n<p>This is the osmia code editor.</p>",
-    },
-    {
-      name: 'ctx',
-      value: "",
-    },
-    {
-      name: 'result',
-      value: "<!-- The result will be here -->",
-    }
+  const [ activeFile, setActiveFile ] = useState<FileEditorTab>(FileEditorTab.OSMIA);
+  const [ code, setCode ] = useState([
+    "<h1>Hello, world!</h1>\n<p>This is the osmia code editor.</p>",
+    "",
+    "<!-- The result will be here -->"
   ]);
-  const [ activeFile, setActiveFile ] = useState(0);
 
   useEffect(() => {
-    setEditorFiles(fs => {
-      fs[1].value = `{\n\t\"program\": \"${openFiles[tabIndex]?.name}\",\n\t\"version\": \"${version}\"\n}`;
-      return fs;
+    setCode(oldCode => {
+      oldCode[FileEditorTab.CTX] = `{\n\t\"program\": \"${openFiles[tabIndex]?.name}\",\n\t\"version\": \"${version}\"\n}`;
+      return oldCode;
     });
   }, [tabIndex]);
 
   const run = () => {
     const data = [
-      editorFiles[0],
-      editorFiles[1]
+      code[FileEditorTab.OSMIA],
+      code[FileEditorTab.CTX]
     ];
     console.debug(data);
     fetch('/run', {
@@ -63,29 +61,45 @@ const FileEditor = ({}: Props) => {
     })
     .then(data => {
       console.log(data);
-      setEditorFiles(prev => {
-        prev[2].value = data;
+      setCode(prev => {
+        prev[FileEditorTab.RESULT] = data;
         return prev;
       });
     })
     .catch(error => console.error(error));
   };
 
+  const save = () => {
+    console.warn('save: not implemented');
+  }
+
+  const changeTab = (tab: FileEditorTab) => {
+    if (tab < 0 || tab >= FILE_EDITOR_TABS.length) {
+      return;
+    }
+    save();
+    setActiveFile(tab);
+  };
+
+  const onInputChange: OnChange = (value, ev) => {
+    console.log(value, ev);
+  };
+
   return (
     <div>
       <FileEditorNavbar
-        btns={<>{editorFiles.map((file, idx) => (
+        btns={<>{FILE_EDITOR_TABS.map((tabName, idx) => (
           <button
             key={idx}
             className="btn"
             disabled={idx === activeFile}
-            onClick={() => setActiveFile(idx)}
+            onClick={() => changeTab(idx)}
           >
-            {file.name}
+            {tabName}
           </button>
         ))}</>}
         toolbar={<>
-          {activeFile === editorFiles.length - 1 &&
+          {activeFile === FileEditorTab.RESULT &&
             <button
               className="btn"
               onClick={run}
@@ -110,9 +124,10 @@ const FileEditor = ({}: Props) => {
         </>}
       />
       <MonacoEditor
-        path={editorFiles[activeFile].name}
+        path={FILE_EDITOR_TABS[activeFile]}
         language={activeFile === 1 ? 'json' : language}
-        defaultValue={editorFiles[activeFile].value}
+        defaultValue={code[activeFile]}
+        onChange={onInputChange}
         loading={<div>Loading...</div>}
       />
     </div>

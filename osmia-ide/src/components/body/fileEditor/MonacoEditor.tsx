@@ -1,10 +1,11 @@
-import Editor from '@monaco-editor/react';
+import Editor, {OnChange} from '@monaco-editor/react';
 import {useEffect, useState} from "react";
 
 interface Props {
   path: string;
   language: string;
   defaultValue: string;
+  onChange: OnChange;
   loading: React.ReactNode;
 };
 
@@ -12,6 +13,7 @@ const MonacoEditor = ({
   path,
   language,
   defaultValue,
+  onChange,
   loading
 }: Props) => {
   const [ height, setHeight ] = useState(0);
@@ -28,7 +30,7 @@ const MonacoEditor = ({
     <Editor
       theme="vs-dark"
       height={height}
-      
+      onChange={onChange}
       path={path}
       language={language}
       defaultValue={defaultValue}
