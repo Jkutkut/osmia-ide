@@ -25,22 +25,12 @@ interface Props {
 
 const FileEditor = ({}: Props) => {
   const { tabIndex, openFiles } = useContext(FileContext);
-  const [ language, setLanguage ] = useState('html');
   const [ activeFile, setActiveFile ] = useState<FileEditorTab>(FileEditorTab.OSMIA);
-  const [ code, setCode ] = useState([
-    "<h1>Hello, world!</h1>\n<p>This is the osmia code editor.</p>",
-    "",
-    "<!-- The result will be here -->"
-  ]);
-
-  useEffect(() => {
-    setCode(oldCode => {
-      oldCode[FileEditorTab.CTX] = `{\n\t\"program\": \"${openFiles[tabIndex]?.name}\",\n\t\"version\": \"${version}\"\n}`;
-      return oldCode;
-    });
-  }, [tabIndex]);
+  const [ language, setLanguage ] = useState(openFiles[tabIndex].osmiaLanguage);
+  const code = openFiles[tabIndex].osmia;
 
   const run = () => {
+    /*
     const data = [
       code[FileEditorTab.OSMIA],
       code[FileEditorTab.CTX]
@@ -67,6 +57,8 @@ const FileEditor = ({}: Props) => {
       });
     })
     .catch(error => console.error(error));
+    */
+    console.warn('run: not implemented');
   };
 
   const save = () => {

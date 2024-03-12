@@ -10,7 +10,7 @@ const Body = () => {
   return <>
     {tabIndex === FILE_SELECTOR &&
       <FileSelector /> ||
-      <FileEditor />
+      <FileEditor key={tabIndex} />
     }
   </>;
 };
