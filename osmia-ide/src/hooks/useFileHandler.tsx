@@ -143,6 +143,7 @@ const useFileHandler = () => {
   const saveCurrentFileContent = (contentType: number, content: string) => {
     if (tabIndex === -1)
       return;
+    console.debug("Saving content", { contentType, content });
     const newOsmia = [...openFiles[tabIndex].osmia];
     newOsmia[contentType] = content;
     const newFile = {

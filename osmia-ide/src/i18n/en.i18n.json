@@ -4,5 +4,6 @@
     "madeBy": "Made by {{author}}",
     "body.fileSelector.table.name": "Name",
     "body.fileSelector.table.lastUpdate": "Last update",
-    "body.fileSelector.button.newFile": "New file"
+    "body.fileSelector.button.newFile": "New file",
+    "body.editor.modified.label": "M"
 }

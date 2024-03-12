@@ -1,10 +1,14 @@
-import {useContext, useState} from "react";
+import {useContext, useRef, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {OnChange} from "@monaco-editor/react";
 
 import EDITOR_LANGUAGES from "@/src/model/EditorLanguages";
-import FileEditorNavbar from "./FileEditorNavbar";
 import FileContext from "@/src/context/FileContext";
+import debounce from "@/src/tools/debounce";
 import MonacoEditor from "./MonacoEditor";
-import {OnChange} from "@monaco-editor/react";
+import FileEditorNavbar from "./FileEditorNavbar";
+
+const AUTO_SAVE_DELAY = 1500;
 
 enum FileEditorTab {
   OSMIA = 0,
@@ -23,14 +27,23 @@ interface Props {
 };
 
 const FileEditor = ({}: Props) => {
+  const { t } = useTranslation();
   const {
     tabIndex, openFiles,
     changeCurrentFileLanguage,
     saveCurrentFileContent
   } = useContext(FileContext);
   const [ activeFile, setActiveFile ] = useState<FileEditorTab>(FileEditorTab.OSMIA);
+  const [ contentModified, setContentModified ] = useState<boolean>(false);
   const language = openFiles[tabIndex].osmiaLanguage;
   const code = openFiles[tabIndex].osmia;
+
+  const autoSave = useRef(
+    debounce((fileIdx: number, value: string) => {
+      saveCurrentFileContent(fileIdx, value);
+      setContentModified(false);
+    }, AUTO_SAVE_DELAY)
+  ).current;
 
   const run = () => {
     /*
@@ -64,15 +77,10 @@ const FileEditor = ({}: Props) => {
     console.warn('run: not implemented');
   };
 
-  const save = () => {
-    console.warn('save: not implemented');
-  }
-
   const changeTab = (tab: FileEditorTab) => {
     if (tab < 0 || tab >= FILE_EDITOR_TABS.length) {
       return;
     }
-    save();
     setActiveFile(tab);
   };
 
@@ -80,7 +88,8 @@ const FileEditor = ({}: Props) => {
     if (!value) {
       return;
     }
-    saveCurrentFileContent(activeFile, value);
+    setContentModified(true);
+    autoSave(activeFile, value);
   };
 
   return (
@@ -94,6 +103,11 @@ const FileEditor = ({}: Props) => {
             onClick={() => changeTab(idx)}
           >
             {tabName}
+            {contentModified && idx === activeFile &&
+              <span className="badge ms-2">
+                {t('body.editor.modified.label')}
+              </span>
+            }
           </button>
         ))}</>}
         toolbar={<>
