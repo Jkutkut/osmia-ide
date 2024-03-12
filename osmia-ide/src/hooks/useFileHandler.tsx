@@ -12,9 +12,8 @@ function createFile(n: number) {
     }
     n++;
   }
-  const text_with_n_chars = Array.from({ length: n }, (_, index) => index + 1).join('');
+  const filename = `new-osmia-file-${n}`;
   const d = new Date();
-  const filename = `File ${n} - ${text_with_n_chars}`;
   return {
     id: fileId,
     name: filename,
@@ -114,7 +113,11 @@ const useFileHandler = () => {
   const renameCurrentFile = (name: string) => {
     if (tabIndex === -1)
       return;
-    const newFile = {...openFiles[tabIndex], name} as File;
+    const newFile = {
+      ...openFiles[tabIndex],
+      name,
+      lastUpdate: new Date()
+    } as File;
     const { id } = newFile;
     setFiles(files.map(file => file.id === id ? newFile : file));
     setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
@@ -125,7 +128,11 @@ const useFileHandler = () => {
   const changeCurrentFileLanguage = (language: string) => {
     if (tabIndex === -1)
       return;
-    const newFile = {...openFiles[tabIndex], osmiaLanguage: language} as File;
+    const newFile = {
+      ...openFiles[tabIndex],
+      osmiaLanguage: language,
+      lastUpdate: new Date()
+    } as File;
     const { id } = newFile;
     setFiles(files.map(file => file.id === id ? newFile : file));
     setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
@@ -133,8 +140,22 @@ const useFileHandler = () => {
     // Store // TODO refactor
     store(id, JSON.stringify(newFile));
   };
-  const saveFileContent = (fileId: string, contentType: number, content: string) => {
-    console.warn('saveFile: not implemented');
+  const saveCurrentFileContent = (contentType: number, content: string) => {
+    if (tabIndex === -1)
+      return;
+    const newOsmia = [...openFiles[tabIndex].osmia];
+    newOsmia[contentType] = content;
+    const newFile = {
+      ...openFiles[tabIndex],
+      osmia: newOsmia,
+      lastUpdate: new Date()
+    } as File;
+    const { id } = newFile;
+    setFiles(files.map(file => file.id === id ? newFile : file));
+    setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
+
+    // Store // TODO refactor
+    store(id, JSON.stringify(newFile));
   };
 
   return {
@@ -150,7 +171,7 @@ const useFileHandler = () => {
     // Edition
     renameCurrentFile,
     changeCurrentFileLanguage,
-    saveFileContent
+    saveCurrentFileContent
   } as FileHandlerObject;
 };
 

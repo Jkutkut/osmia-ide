@@ -13,7 +13,7 @@ interface FileHandlerObject {
   // Edition
   renameCurrentFile: (name: string) => void;
   changeCurrentFileLanguage: (language: string) => void;
-  saveFileContent: (fileId: string, contentType: number, content: string) => void;
+  saveCurrentFileContent: (contentType: number, content: string) => void;
 };
 
 export default FileHandlerObject;

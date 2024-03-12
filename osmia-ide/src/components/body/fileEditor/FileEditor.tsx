@@ -1,5 +1,4 @@
-import {useContext, useEffect, useState} from "react";
-import {version} from "@/package.json";
+import {useContext, useState} from "react";
 
 import EDITOR_LANGUAGES from "@/src/model/EditorLanguages";
 import FileEditorNavbar from "./FileEditorNavbar";
@@ -26,10 +25,10 @@ interface Props {
 const FileEditor = ({}: Props) => {
   const {
     tabIndex, openFiles,
-    changeCurrentFileLanguage
+    changeCurrentFileLanguage,
+    saveCurrentFileContent
   } = useContext(FileContext);
   const [ activeFile, setActiveFile ] = useState<FileEditorTab>(FileEditorTab.OSMIA);
-  // const [ language, setLanguage ] = useState(openFiles[tabIndex].osmiaLanguage);
   const language = openFiles[tabIndex].osmiaLanguage;
   const code = openFiles[tabIndex].osmia;
 
@@ -77,8 +76,11 @@ const FileEditor = ({}: Props) => {
     setActiveFile(tab);
   };
 
-  const onInputChange: OnChange = (value, ev) => {
-    console.log(value, ev);
+  const onInputChange: OnChange = (value, _) => {
+    if (!value) {
+      return;
+    }
+    saveCurrentFileContent(activeFile, value);
   };
 
   return (
