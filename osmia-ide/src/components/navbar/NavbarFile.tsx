@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 
 import {File} from "@/src/model";
 import FileLogo from "@/src/assets/FileLogo";
@@ -12,22 +12,32 @@ interface Props {
 const NavbarFile = ({file, onClose}: Props) => {
   const { renameCurrentFile } = useContext(FileContext);
   const [ renamingFile, setRenamingFile ] = useState(false);
-  const inputId = `changeName-${file.id}`;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (renamingFile) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    }
+  }, [renamingFile]);
 
   const onDoubleClick = () => {
     setRenamingFile(true);
   };
 
   const endRenaming = () => {
-    const input = document.getElementById(inputId) as HTMLInputElement;
-    if (!input) return;
-    const newFileName = input.value;
-    renameCurrentFile(newFileName);
+    const newFileName = (inputRef.current?.value || "").trim();
+    if (newFileName.length !== 0) {
+      renameCurrentFile(newFileName);
+    }
     setRenamingFile(false);
   };
 
-  // TODO fix styles
-  // TODO select all name on double click
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      endRenaming();
+    }
+  };
 
   return <>
       <div
@@ -40,11 +50,12 @@ const NavbarFile = ({file, onClose}: Props) => {
         {!renamingFile &&
           <span>{file.name}</span> ||
           <input
-            id={inputId}
+            ref={inputRef}
             type="text"
-            className="form-control"
+            className="form-control p-0 ps-1 pe-1 ms-2 me-2 border-0"
             defaultValue={file.name}
             onBlur={endRenaming}
+            onKeyDown={onKeyDown}
           />
         }
       </div>
