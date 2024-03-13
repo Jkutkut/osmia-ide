@@ -3,6 +3,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {File} from "@/src/model";
 import FileLogo from "@/src/assets/FileLogo";
 import FileContext from "@/src/context/FileContext";
+import LanguageLogo from "@/src/assets/languages/LanguageLogo";
 
 interface Props {
   file: File,
@@ -45,7 +46,9 @@ const NavbarFile = ({file, onClose}: Props) => {
         onDoubleClick={onDoubleClick}
       >
         <div>
-          <FileLogo />
+          <LanguageLogo
+            language={file.osmiaLanguage}
+          />
         </div>
         {!renamingFile &&
           <span>{file.name}</span> ||

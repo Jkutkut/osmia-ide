@@ -1,6 +1,7 @@
 import ExportLogo from "@/src/assets/ExportLogo";
 import PencilLogo from "@/src/assets/PencilLogo";
 import TrashLogo from "@/src/assets/TrashLogo";
+import LanguageLogo from "@/src/assets/languages/LanguageLogo";
 import {File} from "@/src/model";
 
 interface Props {
@@ -25,7 +26,12 @@ const FileSelectorItem = ({file, onEdit, onRemove}: Props) => {
   return (
     <tr>
       <td className="table-file-name overflow-x-auto">
-          {language} -- {filename}
+          <LanguageLogo
+            className="bi bi-filetype-html me-2"
+            language={language}
+            width={18}
+          />
+          {filename}
       </td>
       <td className="table-last-update text-center overflow-x-auto">
         <span className="desktop-only">
