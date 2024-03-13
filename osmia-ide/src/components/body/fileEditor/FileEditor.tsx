@@ -16,12 +16,6 @@ enum FileEditorTab {
   RESULT = 2
 };
 
-const FILE_EDITOR_TABS = [
-  'osmia',
-  'ctx',
-  'result'
-];
-
 interface Props {
 
 };
@@ -37,6 +31,11 @@ const FileEditor = ({}: Props) => {
   const [ contentModified, setContentModified ] = useState<boolean>(false);
   const language = openFiles[tabIndex].osmiaLanguage;
   const code = openFiles[tabIndex].osmia;
+  const FILE_EDITOR_TABS = [
+    t('osmia'),
+    t('ctx'),
+    t('result')
+  ];
 
   const autoSave = useRef(
     debounce((fileIdx: number, value: string) => {
@@ -116,7 +115,7 @@ const FileEditor = ({}: Props) => {
               className="btn"
               onClick={run}
             >
-              Run
+              {t('body.fileEditor.run.label')}
             </button>
           }
           {activeFile !== 1 &&

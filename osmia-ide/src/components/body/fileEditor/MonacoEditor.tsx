@@ -20,7 +20,8 @@ const MonacoEditor = ({
   useEffect(() => {
     const updateHeight = () => {
       const navBarHeight = document.getElementsByTagName('nav')[0]?.clientHeight || 0;
-      setHeight(window.innerHeight - navBarHeight);
+      const editorNavBarHeight = document.getElementById('file-editor-navbar')?.clientHeight || 0;
+      setHeight(window.innerHeight - navBarHeight - editorNavBarHeight);
     };
     window.addEventListener('resize', updateHeight);
     updateHeight();

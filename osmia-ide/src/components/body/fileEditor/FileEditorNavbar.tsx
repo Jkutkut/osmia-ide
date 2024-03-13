@@ -5,7 +5,7 @@ interface Props {
 
 const FileEditorNavbar = ({btns, toolbar}: Props) => {
   return (
-    <div className="d-flex w-100 p-2">
+    <div id="file-editor-navbar" className="d-flex w-100 p-2">
       <div className="d-flex flex-row col-8 gap-2 align-items-center">
         {btns}
       </div>

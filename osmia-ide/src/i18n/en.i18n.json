@@ -5,5 +5,9 @@
     "body.fileSelector.table.name": "Name",
     "body.fileSelector.table.lastUpdate": "Last update",
     "body.fileSelector.button.newFile": "New file",
-    "body.editor.modified.label": "M"
+    "body.editor.modified.label": "M",
+    "body.editor.run.label": "Run",
+    "body.editor.osmia.label": "osmia",
+    "body.editor.ctx.label": "Ctx",
+    "body.editor.result.label": "Result"
 }
