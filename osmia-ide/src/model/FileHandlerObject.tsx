@@ -6,6 +6,7 @@ interface FileHandlerObject {
   openFiles: File[];
   files: File[];
   addFile: () => void;
+  importFile: (file: File) => void;
   editFile: (fileId: string) => void;
   closeFile: (fileId: string) => void;
   removeFile: (fileId: string) => void;

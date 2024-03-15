@@ -4,7 +4,7 @@ import { FileHandlerObject, File } from "@/src/model";
 import fileFromJSON from "@/src/tools/fileFromJSON";
 import {load, loadFile, store, storeFile} from "../tools/persistance";
 
-function createFile(n: number) {
+function newFileId(n: number = 0) {
   let fileId;
   while (true) {
     fileId = `_f${n}`;
@@ -13,6 +13,11 @@ function createFile(n: number) {
     }
     n++;
   }
+  return fileId;
+}
+
+function createFile(n: number) {
+  const fileId = newFileId(n);
   const filename = `new-osmia-file-${n}`;
   const d = new Date();
   return {
@@ -80,15 +85,26 @@ const useFileHandler = () => {
     }
   };
 
-  const addFile = () => {
-    const newFile = createFile(files.length + 1);
-    const newFiles = [...files, newFile];
+  const _addFile = (file: File) => {
+    const newFiles = [...files, file];
     setFiles(newFiles);
     setTabIndex(openFiles.length);
-    setOpenFiles([...openFiles, newFile]);
+    setOpenFiles([...openFiles, file]);
 
-    storeFile(newFile);
+    storeFile(file);
     store('indexes', JSON.stringify(newFiles.map(file => file.id)));
+  };
+
+  const addFile = () => _addFile(createFile(files.length + 1));
+
+  const importFile = (file: File) => {
+    if (!file)
+      return;
+    if (!file.id || file.id === '') {
+      const fileId = newFileId(files.length + 1);
+      file.id = fileId;
+    }
+    _addFile(file);
   };
 
   // Edition
@@ -144,6 +160,7 @@ const useFileHandler = () => {
     openFiles,
     files,
     addFile,
+    importFile,
     editFile,
     closeFile,
     removeFile,

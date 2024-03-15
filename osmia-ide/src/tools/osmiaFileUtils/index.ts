@@ -22,5 +22,14 @@ const exportFile: (file: File) => void = (file: File) => {
   window.URL.revokeObjectURL(url);
 };
 
+const importFileFromJson: (fileJson: any) => File | null = (fileJson: any) => {
+  const {version, data} = fileJson;
+  if (!version || !data)
+    return null;
+  // TODO handle version
+  const file = decompressOsmiaFile('', data);
+  return file;
+}
+
 export {compressOsmiaFile, decompressOsmiaFile};
-export {exportFile};
+export {exportFile, importFileFromJson};

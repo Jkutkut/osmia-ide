@@ -6,6 +6,7 @@
     "body.fileSelector.table.lastUpdate": "Last update",
     "body.fileSelector.button.newFile": "New file",
     "body.fileSelector.button.import": "Import",
+    "body.fileSelector.toast.invalidFile": "{{name}} could not be imported",
     "body.editor.modified.label": "M",
     "body.editor.run.label": "Run",
     "body.editor.osmia.label": "osmia",
