@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import { version } from "@/package.json";
 import { FileHandlerObject, File } from "@/src/model";
 import fileFromJSON from "@/src/tools/fileFromJSON";
+import {load, loadFile, store, storeFile} from "../tools/persistance";
 
 function createFile(n: number) {
   let fileId;
@@ -27,23 +28,6 @@ function createFile(n: number) {
   } as File;
 }
 
-const store = (key: string, value: string) => {
-  const value64 = btoa(value);
-  localStorage.setItem(key, value64);
-};
-
-const remove = (key: string) => {
-  localStorage.removeItem(key);
-};
-
-const load = (key: string) => {
-  const value64 = localStorage.getItem(key);
-  if (!value64) {
-    return '';
-  }
-  return atob(value64);
-};
-
 const useFileHandler = () => {
   const [ tabIndex, setTabIndex ] = useState(-1);
   const [ files, setFiles ] = useState<File[]>([]);
@@ -51,7 +35,7 @@ const useFileHandler = () => {
 
   useEffect(() => {
     const indexes = JSON.parse(load('indexes') || '[]') as string[];
-    const newFiles = indexes.map(id => fileFromJSON(JSON.parse(load(id))));
+    const newFiles = indexes.map(id => fileFromJSON(loadFile(id)));
     setFiles(newFiles);
   }, []);
 
@@ -77,8 +61,7 @@ const useFileHandler = () => {
     const newFiles = files.filter(file => file.id !== fileId);
     setFiles(newFiles);
 
-    // Store // TODO refactor
-    remove(fileId);
+    localStorage.removeItem(fileId);
     store('indexes', JSON.stringify(newFiles.map(file => file.id)));
   };
 
@@ -97,15 +80,14 @@ const useFileHandler = () => {
     }
   };
 
-  const addFile = () => { // TODO
+  const addFile = () => {
     const newFile = createFile(files.length + 1);
     const newFiles = [...files, newFile];
     setFiles(newFiles);
     setTabIndex(openFiles.length);
     setOpenFiles([...openFiles, newFile]);
 
-    // Store // TODO refactor
-    store(newFile.id, JSON.stringify(newFile));
+    storeFile(newFile);
     store('indexes', JSON.stringify(newFiles.map(file => file.id)));
   };
 
@@ -122,8 +104,7 @@ const useFileHandler = () => {
     setFiles(files.map(file => file.id === id ? newFile : file));
     setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
 
-    // Store // TODO refactor
-    store(id, JSON.stringify(newFile));
+    storeFile(newFile);
   }
   const changeCurrentFileLanguage = (language: string) => {
     if (tabIndex === -1)
@@ -137,8 +118,7 @@ const useFileHandler = () => {
     setFiles(files.map(file => file.id === id ? newFile : file));
     setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
 
-    // Store // TODO refactor
-    store(id, JSON.stringify(newFile));
+    storeFile(newFile);
   };
   const saveCurrentFileContent = (contentType: number, content: string) => {
     if (tabIndex === -1)
@@ -155,8 +135,7 @@ const useFileHandler = () => {
     setFiles(files.map(file => file.id === id ? newFile : file));
     setOpenFiles(openFiles.map(file => file.id === id ? newFile : file));
 
-    // Store // TODO refactor
-    store(id, JSON.stringify(newFile));
+    storeFile(newFile);
   };
 
   return {
