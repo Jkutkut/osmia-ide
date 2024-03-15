@@ -1,6 +1,5 @@
 import {File} from "@/src/model";
-import {lzw_decode, lzw_encode} from "@/src/tools/lzw";
-import {base64ToNbr, nbrToBase64} from "@/src/tools/base64";
+import {compressOsmiaFile, decompressOsmiaFile} from "./osmiaFileUtils";
 
 const store = (key: string, value: string) => {
   const value64 = btoa(value);
@@ -16,32 +15,12 @@ const load = (key: string) => {
 };
 
 const storeFile = (file: File) => {
-  const fields = [
-    file.name,
-    file.osmiaLanguage,
-    nbrToBase64(file.lastUpdate.getTime()),
-    ...file.osmia
-  ];
-  const data = fields.join('\0');
-  localStorage.setItem(file.id, lzw_encode(data));
+  localStorage.setItem(file.id, compressOsmiaFile(file));
 };
 
-const loadFile = (key: string) => {
+const loadFile: (key: string) => File = (key: string) => {
   const data = localStorage.getItem(key) || '';
-  const fields = lzw_decode(data).split('\0');
-  const [
-    name,
-    language,
-    lastUpdate,
-    ...osmia
-  ] = fields;
-  return {
-    id: key,
-    name,
-    lastUpdate: new Date(base64ToNbr(lastUpdate)),
-    osmiaLanguage: language,
-    osmia
-  } as File;
+  return decompressOsmiaFile(key, data);
 };
 
 export {store, load, storeFile, loadFile};

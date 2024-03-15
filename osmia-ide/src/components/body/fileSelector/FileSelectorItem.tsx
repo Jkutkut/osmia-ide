@@ -3,6 +3,7 @@ import PencilLogo from "@/src/assets/PencilLogo";
 import TrashLogo from "@/src/assets/TrashLogo";
 import LanguageLogo from "@/src/assets/languages/LanguageLogo";
 import {File} from "@/src/model";
+import {exportFile} from "@/src/tools/osmiaFileUtils";
 
 interface Props {
   file: File;
@@ -20,7 +21,7 @@ const FileSelectorItem = ({file, onEdit, onRemove}: Props) => {
   const date = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
 
   const onExport = () => {
-    console.warn('export: not implemented');
+    exportFile(file);
   };
 
   return (

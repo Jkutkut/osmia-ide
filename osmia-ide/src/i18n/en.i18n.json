@@ -5,6 +5,7 @@
     "body.fileSelector.table.name": "Name",
     "body.fileSelector.table.lastUpdate": "Last update",
     "body.fileSelector.button.newFile": "New file",
+    "body.fileSelector.button.import": "Import",
     "body.editor.modified.label": "M",
     "body.editor.run.label": "Run",
     "body.editor.osmia.label": "osmia",

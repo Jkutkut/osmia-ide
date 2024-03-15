@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import FileContext from "@/src/context/FileContext";
 import FileSelectorItem from "./FileSelectorItem";
 import AddFileLogo from "@/src/assets/AddFileLogo";
+import ImportLogo from "@/src/assets/ImportLogo";
 
 const FileSelector = () => {
   const { t } = useTranslation();
@@ -29,6 +30,15 @@ const FileSelector = () => {
                     <AddFileLogo />
                   </div>
                   {t('body.fileSelector.button.newFile')}
+                </button>
+                <button
+                  className="btn d-flex justify-content-center flex-row gap-2"
+                  onClick={() => console.warn('import: not implemented')}
+                >
+                  <div className="text-primary">
+                    <ImportLogo />
+                  </div>
+                  {t('body.fileSelector.button.import')}
                 </button>
               </th>
             </tr>
