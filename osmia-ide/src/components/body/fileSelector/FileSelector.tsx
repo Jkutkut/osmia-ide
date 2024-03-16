@@ -106,7 +106,9 @@ const FileSelector = () => {
                   <div className="text-primary">
                     <AddFileLogo />
                   </div>
-                  {t('body.fileSelector.button.newFile')}
+                  <span className="desktop-only">
+                    {t('body.fileSelector.button.newFile')}
+                  </span>
                 </button>
                 <input
                   type="file"
@@ -121,7 +123,9 @@ const FileSelector = () => {
                   <div className="text-primary">
                     <ImportLogo />
                   </div>
-                  {t('body.fileSelector.button.import')}
+                  <span className="desktop-only">
+                    {t('body.fileSelector.button.import')}
+                  </span>
                 </button>
               </th>
             </tr>
