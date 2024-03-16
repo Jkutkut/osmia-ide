@@ -12,5 +12,6 @@
     "body.editor.osmia.label": "osmia",
     "body.editor.ctx.label": "Ctx",
     "body.editor.result.label": "Result",
+    "body.login.btn.login.label": "Login",
     "url.redirect.label": "then"
 }

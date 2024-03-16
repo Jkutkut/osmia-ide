@@ -5,6 +5,7 @@ import Loading from "./pages/Loading";
 import GoogleAuthProvider from "./context/GoogleAuthProvider";
 import SaveUrlRedirect from "./components/router/SaveUrlRedirect";
 import {useTranslation} from "react-i18next";
+import Login from "./pages/Login";
 
 const App = () => {
   const gAuth = useGoogleAuth();
@@ -18,7 +19,7 @@ const App = () => {
   if (!isLoggedIn) {
     return <>
       <Routes>
-        <Route path="/login" element={<button onClick={login}>Login</button>}/>
+        <Route path="/login" element={<Login onLogin={login}/>}/>
         <Route path="/*" element={<SaveUrlRedirect
           to="/login"
           fieldName={t("url.redirect.label")}
@@ -35,7 +36,6 @@ const App = () => {
     <GoogleAuthProvider gAuth={gAuth}>
       <Routes>
         <Route path="/" element={<Editor/>}/>
-
         <Route path="/*" element={<Navigate to="/"/>}/>
       </Routes>
     </GoogleAuthProvider>

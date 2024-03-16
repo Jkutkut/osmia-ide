@@ -27,7 +27,11 @@ const useGoogleAuth = () => {
       setIsLoading(false);
     },
     onError: (error) => {
-      console.error('Login Failed:', error);
+      console.warn('Login Failed:', error);
+      setIsLoading(false);
+    },
+    onNonOAuthError: (error) => {
+      console.warn('Login Failed:', error);
       setIsLoading(false);
     }
   });
