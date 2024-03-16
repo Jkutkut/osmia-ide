@@ -3,28 +3,38 @@ import Editor from "./pages/Editor";
 import useGoogleAuth from "./hooks/useGoogleAuth";
 import Loading from "./pages/Loading";
 import GoogleAuthProvider from "./context/GoogleAuthProvider";
+import SaveUrlRedirect from "./components/router/SaveUrlRedirect";
+import {useTranslation} from "react-i18next";
 
 const App = () => {
   const gAuth = useGoogleAuth();
   const {isLoading, isLoggedIn, login} = gAuth;
+  const [searchParams] = useSearchParams();
+  const {t} = useTranslation();
 
   if (isLoading) {
     return <Loading/>;
   }
   if (!isLoggedIn) {
     return <>
-      <button onClick={login}>Login</button>
+      <Routes>
+        <Route path="/login" element={<button onClick={login}>Login</button>}/>
+        <Route path="/*" element={<SaveUrlRedirect
+          to="/login"
+          fieldName={t("url.redirect.label")}
+        />} />
+      </Routes>
     </>;
   }
-
-  console.log(gAuth);
-  console.log(gAuth.logout);
+  if (searchParams.has(t("url.redirect.label"))) {
+    const url = searchParams.get(t("url.redirect.label")) || "/";
+    return <Navigate to={url} replace={true} />;
+  }
 
   return <>
     <GoogleAuthProvider gAuth={gAuth}>
       <Routes>
-        <Route path="/" element={<Navigate to="/editor"/>}/>
-        <Route path="/editor" element={<Editor/>}/>
+        <Route path="/" element={<Editor/>}/>
 
         <Route path="/*" element={<Navigate to="/"/>}/>
       </Routes>

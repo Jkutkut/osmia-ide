@@ -8,8 +8,6 @@ const exportFile: (file: File) => void = (file: File) => {
     version,
     data: osmiaData
   };
-  console.log(file);
-  console.log(data);
   const blobFile = new Blob(
     [JSON.stringify(data)],
     {type: 'application/json'}

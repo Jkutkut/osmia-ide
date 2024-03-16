@@ -38,7 +38,6 @@ const useGoogleAuth = () => {
   };
 
   const logout = () => {
-    console.debug('Logging out...');
     googleLogout();
     setUser(null);
     sessionStorage.removeItem('user');
