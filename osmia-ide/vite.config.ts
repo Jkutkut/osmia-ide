@@ -8,5 +8,6 @@ export default defineConfig({
     react(),
     tsconfigPaths()
   ],
+  base: "/osmia-ide/",
   server: { host: "0.0.0.0" },
 })
