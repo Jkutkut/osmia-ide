@@ -7,6 +7,7 @@ import NavbarItem from "./NavbarItem";
 import NavbarProjectInfo from './NavbarProjectInfo';
 import './Navbar.scss';
 import FileContext from '@/src/context/FileContext';
+import GoogleAuthContext from '@/src/context/GoogleAuthContext';
 
 interface Props {
   closeFile: (fileId: string) => void,
@@ -18,6 +19,7 @@ const Navbar = ({focusTab, closeFile}: Props) => {
   const { t } = useTranslation();
   const { tabIndex, openFiles } = useContext(FileContext);
   const [ scrollIsOn, setScrollIsOn ] = useState(false);
+  const { logout } = useContext(GoogleAuthContext);
 
   const updateScrollIsOn = () => {
     const fileList = document.getElementById('file-list');
@@ -67,6 +69,11 @@ const Navbar = ({focusTab, closeFile}: Props) => {
           ))}
         </div>
         <NavbarProjectInfo />
+        <button
+          className="btn-close"
+          aria-label="Close"
+          onClick={logout}
+        ></button>
       </div>
     </nav>
   );
