@@ -8,7 +8,7 @@ import './sass/main.scss'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-    <BrowserRouter basename={"/osmia-ide"}>
+    <BrowserRouter basename='/osmia-ide'>
       <App />
     </BrowserRouter>
   </GoogleOAuthProvider>
